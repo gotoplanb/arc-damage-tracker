@@ -10,7 +10,7 @@
       "damage": {
         "weapons": {},
         "explosives": {
-          "Seeker Grenade": {"units": 2, "verified": "2026-01-31", "notes": ""}
+          "Seeker Grenade": {"units": 2, "verified": "2026-01-31", "notes": "Only works while scanning (blue light painting into sky)"}
         }
       }
     }
