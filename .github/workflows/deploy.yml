@@ -23,5 +23,10 @@ jobs:
         with:
           fetch-depth: 0
       - run: |
+          curl -s -X PATCH "https://api.heroku.com/apps/arc-damage-tracker/config-vars" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/vnd.heroku+json; version=3" \
+            -H "Authorization: Bearer ${{ secrets.HEROKU_API_KEY }}" \
+            -d "{\"SOURCE_VERSION\": \"${GITHUB_SHA}\"}"
           heroku_remote="https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/arc-damage-tracker.git"
           git push "${heroku_remote}" main:main

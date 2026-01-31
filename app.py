@@ -1,7 +1,24 @@
 import json
+import os
+import subprocess
 from flask import Flask, render_template, abort
 
 app = Flask(__name__)
+
+def get_commit_sha():
+    sha = os.environ.get('SOURCE_VERSION', '')
+    if not sha:
+        try:
+            sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+        except Exception:
+            sha = ''
+    return sha[:7] if sha else 'dev'
+
+COMMIT_SHA = get_commit_sha()
+
+@app.context_processor
+def inject_globals():
+    return {'commit_sha': COMMIT_SHA}
 
 def load_data():
     with open('data.json') as f:
