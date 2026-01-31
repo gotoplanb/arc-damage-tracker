@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<p>How many shots/explosives to kill each ARC.</p>
+
+{% for level in threat_order %}
+<section class="threat-group threat-{{ level }}">
+    <h2>{{ level|title }} Threat</h2>
+    <ul>
+    {% for arc in grouped_arcs[level] %}
+        <li>
+            <a href="/arc/{{ arc.slug }}">{{ arc.name }}</a>
+            <span class="arc-type">{{ arc.type }}</span>
+        </li>
+    {% endfor %}
+    </ul>
+</section>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ arc.name }} - Arc Raiders Damage Tracker{% endblock %}
+{% block content %}
+<a href="/">&larr; Back</a>
+
+<h2>{{ arc.name }}</h2>
+<p class="arc-meta">
+    <span class="threat threat-{{ arc.threat_level }}">{{ arc.threat_level|title }}</span>
+    {{ arc.type }} | {{ arc.kill_xp }} XP (kill) | {{ arc.loot_xp }} XP (loot)
+</p>
+
+<h3>Weapons</h3>
+{% if arc.damage.weapons %}
+<table>
+    <tr><th>Weapon</th><th>Units to Kill</th><th>Verified</th><th>Notes</th></tr>
+    {% for weapon, info in arc.damage.weapons.items() %}
+    <tr>
+        <td>{{ weapon }}</td>
+        <td>{{ info.units }}</td>
+        <td>{{ info.verified }}</td>
+        <td>{{ info.notes }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No weapon data yet.</p>
+{% endif %}
+
+<h3>Explosives</h3>
+{% if arc.damage.explosives %}
+<table>
+    <tr><th>Explosive</th><th>Units to Kill</th><th>Verified</th><th>Notes</th></tr>
+    {% for explosive, info in arc.damage.explosives.items() %}
+    <tr>
+        <td>{{ explosive }}</td>
+        <td>{{ info.units }}</td>
+        <td>{{ info.verified }}</td>
+        <td>{{ info.notes }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No explosive data yet.</p>
+{% endif %}
+{% endblock %}
