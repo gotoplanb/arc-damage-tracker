@@ -1,6 +1,34 @@
 {
   "arcs": [
     {
+      "slug": "bastion",
+      "name": "Bastion",
+      "threat_level": "critical",
+      "type": "Heavy Assault",
+      "kill_xp": 500,
+      "loot_xp": 250,
+      "damage": {
+        "weapons": {},
+        "explosives": {
+          "Trailblazer": {"units": 3, "verified": "2026-01-31", "notes": "Throw right underneath"}
+        }
+      }
+    },
+    {
+      "slug": "bombardier",
+      "name": "Bombardier",
+      "threat_level": "critical",
+      "type": "Heavy Artillery",
+      "kill_xp": 500,
+      "loot_xp": 300,
+      "damage": {
+        "weapons": {},
+        "explosives": {
+          "Trailblazer": {"units": 3, "verified": "2026-01-31", "notes": "Throw right underneath"}
+        }
+      }
+    },
+    {
       "slug": "surveyor",
       "name": "Surveyor",
       "threat_level": "low",
