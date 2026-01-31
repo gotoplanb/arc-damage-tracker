@@ -1,5 +1,20 @@
 {
-  "arcs": [],
+  "arcs": [
+    {
+      "slug": "surveyor",
+      "name": "Surveyor",
+      "threat_level": "low",
+      "type": "Reconnaissance",
+      "kill_xp": 200,
+      "loot_xp": 300,
+      "damage": {
+        "weapons": {},
+        "explosives": {
+          "Seeker Grenade": {"units": 2, "verified": "2026-01-31", "notes": ""}
+        }
+      }
+    }
+  ],
   "weapons": [
     {"name": "Kettle", "class": "Assault Rifle", "ammo": "Light"},
     {"name": "Rattler", "class": "Assault Rifle", "ammo": "Medium"},
