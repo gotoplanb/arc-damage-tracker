@@ -25,6 +25,16 @@
                 <span class="text-gray-500 text-sm ml-1">{{ arc.type }}</span>
                 {% if arc.best %}
                 <span class="text-emerald-400 text-sm ml-2">{{ arc.best.units }}x {{ arc.best.name }}</span>
+                {% if arc.best.notes %}
+                <span class="relative inline-block" x-data="{ open: false }">
+                    <button @click="open = !open" class="text-gray-500 hover:text-emerald-400 align-middle ml-0.5 focus:outline-none" aria-label="Info">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <span x-show="open" @click.away="open = false" x-transition class="absolute left-0 top-6 z-10 w-48 rounded bg-slate-700 px-3 py-2 text-xs text-gray-300 shadow-lg">{{ arc.best.notes }}</span>
+                </span>
+                {% endif %}
                 {% elif arc.has_data %}
                 <span class="bg-emerald-400 text-slate-900 text-xs font-bold px-1.5 py-0.5 rounded ml-1 uppercase">data</span>
                 {% endif %}

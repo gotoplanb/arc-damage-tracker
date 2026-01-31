@@ -21,7 +21,7 @@ def index():
             for category in ('weapons', 'explosives'):
                 for name, info in arc_data[slug]['damage'].get(category, {}).items():
                     if info.get('best'):
-                        arc['best'] = {'name': name, 'units': info['units']}
+                        arc['best'] = {'name': name, 'units': info['units'], 'notes': info.get('notes', '')}
                         break
                 if arc['best']:
                     break
