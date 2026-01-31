@@ -23,7 +23,9 @@
                     {{ arc.name }}
                 </a>
                 <span class="text-gray-500 text-sm ml-1">{{ arc.type }}</span>
-                {% if arc.has_data %}
+                {% if arc.best %}
+                <span class="text-emerald-400 text-sm ml-2">{{ arc.best.units }}x {{ arc.best.name }}</span>
+                {% elif arc.has_data %}
                 <span class="bg-emerald-400 text-slate-900 text-xs font-bold px-1.5 py-0.5 rounded ml-1 uppercase">data</span>
                 {% endif %}
             </li>

@@ -10,12 +10,21 @@ def load_data():
 @app.route('/')
 def index():
     data = load_data()
-    arcs_with_data = {a['slug'] for a in data['arcs']
-                      if a['damage']['weapons'] or a['damage']['explosives']}
+    arc_data = {a['slug']: a for a in data['arcs']}
     threat_order = ['extreme', 'critical', 'high', 'moderate', 'low']
     grouped = {level: [] for level in threat_order}
     for arc in data['arc_list']:
-        arc['has_data'] = arc['slug'] in arcs_with_data
+        slug = arc['slug']
+        arc['has_data'] = slug in arc_data
+        arc['best'] = None
+        if slug in arc_data:
+            for category in ('weapons', 'explosives'):
+                for name, info in arc_data[slug]['damage'].get(category, {}).items():
+                    if info.get('best'):
+                        arc['best'] = {'name': name, 'units': info['units']}
+                        break
+                if arc['best']:
+                    break
         grouped[arc['threat_level']].append(arc)
     return render_template('index.html', grouped_arcs=grouped, threat_order=threat_order)
 
