@@ -10,29 +10,48 @@
             theme: {
                 extend: {
                     colors: {
-                        extreme: '#8b0000',
-                        critical: '#c0392b',
-                        high: '#d35400',
-                        moderate: '#7d6608',
-                        low: '#2d6a2e',
+                        extreme: { DEFAULT: '#dc2626', muted: '#991b1b' },
+                        critical: { DEFAULT: '#ef4444', muted: '#b91c1c' },
+                        high: { DEFAULT: '#f97316', muted: '#c2410c' },
+                        moderate: { DEFAULT: '#eab308', muted: '#a16207' },
+                        low: { DEFAULT: '#22c55e', muted: '#15803d' },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
                     }
                 }
             }
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glow-red { text-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+            .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.1); }
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-gray-200 min-h-screen">
-    <div class="max-w-3xl mx-auto px-4 py-8">
-        <header class="mb-6">
-            <h1 class="text-2xl font-bold">
-                <a href="/" class="text-red-500 hover:text-red-400 no-underline">Arc Raiders Damage Tracker</a>
-            </h1>
+<body class="bg-gray-950 text-gray-100 min-h-screen font-sans antialiased">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <header class="mb-8 sm:mb-10">
+            <a href="/" class="group inline-block">
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-red-500 glow-red group-hover:text-red-400 transition-colors">
+                    Arc Raiders
+                </h1>
+                <p class="text-sm font-medium text-gray-500 tracking-widest uppercase mt-1">Damage Tracker</p>
+            </a>
         </header>
         <main>
             {% block content %}{% endblock %}
         </main>
+        <footer class="mt-12 pt-6 border-t border-gray-800/50">
+            <p class="text-xs text-gray-600">Community-sourced data. Contribute at <span class="text-gray-500">github</span>.</p>
+        </footer>
     </div>
 </body>
 </html>

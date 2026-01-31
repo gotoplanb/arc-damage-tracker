@@ -1,56 +1,76 @@
 {% extends "base.html" %}
 {% block content %}
-<p class="text-gray-400 mb-4">How many shots/explosives to kill each ARC.</p>
+<p class="text-gray-500 text-sm mb-6">Shots and explosives to kill each ARC, verified in-game.</p>
 
 <div x-data="{ dataOnly: true }">
-    <label class="inline-flex items-center gap-2 text-sm text-gray-400 cursor-pointer mb-4">
-        <input type="checkbox" x-model="dataOnly" class="rounded bg-slate-700 border-slate-600">
-        Show only ARCs with data
+    <label class="inline-flex items-center gap-2.5 text-sm text-gray-400 cursor-pointer mb-6 select-none group">
+        <div class="relative">
+            <input type="checkbox" x-model="dataOnly" class="peer sr-only">
+            <div class="w-9 h-5 rounded-full bg-gray-800 border border-gray-700 peer-checked:bg-emerald-600 peer-checked:border-emerald-500 transition-all"></div>
+            <div class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-gray-400 peer-checked:bg-white peer-checked:translate-x-4 transition-all"></div>
+        </div>
+        <span class="group-hover:text-gray-300 transition-colors">Show only ARCs with data</span>
     </label>
 
-    {% set threat_colors = {'extreme': 'bg-extreme', 'critical': 'bg-critical', 'high': 'bg-high', 'moderate': 'bg-moderate', 'low': 'bg-low'} %}
+    {% set threat_borders = {'extreme': 'border-l-extreme', 'critical': 'border-l-critical', 'high': 'border-l-high', 'moderate': 'border-l-moderate', 'low': 'border-l-low'} %}
+    {% set threat_text = {'extreme': 'text-extreme', 'critical': 'text-critical', 'high': 'text-high', 'moderate': 'text-moderate', 'low': 'text-low'} %}
+    {% set threat_bg = {'extreme': 'bg-extreme-muted/20', 'critical': 'bg-critical-muted/20', 'high': 'bg-high-muted/20', 'moderate': 'bg-moderate-muted/20', 'low': 'bg-low-muted/20'} %}
 
     {% for level in threat_order %}
     {% if grouped_arcs[level] %}
-    <section class="mb-6" x-show="!dataOnly || {{ grouped_arcs[level]|selectattr('has_data')|list|length }} > 0">
-        <h2 class="inline-block px-3 py-1 rounded text-sm font-semibold mb-2 {{ threat_colors[level] }}">
-            {{ level|title }} Threat
-        </h2>
-        <ul class="pl-2 space-y-1">
+    <section class="mb-8" x-show="!dataOnly || {{ grouped_arcs[level]|selectattr('has_data')|list|length }} > 0">
+        <div class="flex items-center gap-3 mb-3">
+            <h2 class="text-xs font-semibold tracking-widest uppercase {{ threat_text[level] }}">
+                {{ level|title }} Threat
+            </h2>
+            <div class="flex-1 h-px bg-gradient-to-r from-gray-800 to-transparent"></div>
+        </div>
+        <div class="space-y-2">
         {% for arc in grouped_arcs[level] %}
-            <li x-show="!dataOnly || {{ 'true' if arc.has_data else 'false' }}">
-                <a href="/arc/{{ arc.slug }}" class="{{ 'text-emerald-400 hover:text-emerald-300' if arc.has_data else 'text-gray-600 hover:text-gray-500' }}">
-                    {{ arc.name }}
-                </a>
-                <span class="text-gray-500 text-sm ml-1">{{ arc.type }}</span>
-                {% if arc.best %}
-                <span class="text-emerald-400 text-sm ml-2">{{ arc.best.units }}x {{ arc.best.name }}</span>
-                {% if arc.best.notes %}
-                <span x-data="{ open: false }">
-                    <button @click="open = true" class="text-gray-500 hover:text-emerald-400 align-middle ml-0.5 focus:outline-none" aria-label="Info">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <template x-teleport="body">
-                        <div x-show="open" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4" @click.self="open = false">
-                            <div class="w-full max-w-sm rounded-lg bg-slate-800 p-4 shadow-xl" @click.stop>
-                                <div class="flex items-start justify-between mb-2">
-                                    <h3 class="text-sm font-semibold text-emerald-400">{{ arc.name }} — {{ arc.best.units }}x {{ arc.best.name }}</h3>
-                                    <button @click="open = false" class="text-gray-500 hover:text-gray-300 ml-2">&times;</button>
+            <div x-show="!dataOnly || {{ 'true' if arc.has_data else 'false' }}"
+                 class="group rounded-lg border-l-2 {{ threat_borders[level] }} {{ threat_bg[level] if arc.has_data else 'bg-gray-900/40' }} px-4 py-3 transition-all hover:bg-gray-800/60">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <a href="/arc/{{ arc.slug }}" class="font-medium {{ 'text-gray-100 hover:text-white' if arc.has_data else 'text-gray-600 hover:text-gray-500' }} transition-colors truncate">
+                            {{ arc.name }}
+                        </a>
+                        <span class="text-xs text-gray-600 hidden sm:inline">{{ arc.type }}</span>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        {% if arc.best %}
+                        <span class="font-mono text-sm font-medium text-emerald-400">{{ arc.best.units }}x</span>
+                        <span class="text-sm text-gray-400">{{ arc.best.name }}</span>
+                        {% if arc.best.notes %}
+                        <span x-data="{ open: false }">
+                            <button @click="open = true" class="text-gray-600 hover:text-emerald-400 transition-colors focus:outline-none" aria-label="Info">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <template x-teleport="body">
+                                <div x-show="open" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4" @click.self="open = false">
+                                    <div class="w-full max-w-sm glass rounded-xl p-5 shadow-2xl" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" @click.stop>
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-100">{{ arc.name }}</h3>
+                                                <p class="text-xs text-emerald-400 font-mono mt-0.5">{{ arc.best.units }}x {{ arc.best.name }}</p>
+                                            </div>
+                                            <button @click="open = false" class="text-gray-500 hover:text-gray-300 text-xl leading-none transition-colors">&times;</button>
+                                        </div>
+                                        <p class="text-sm text-gray-300 leading-relaxed">{{ arc.best.notes }}</p>
+                                    </div>
                                 </div>
-                                <p class="text-sm text-gray-300">{{ arc.best.notes }}</p>
-                            </div>
-                        </div>
-                    </template>
-                </span>
-                {% endif %}
-                {% elif arc.has_data %}
-                <span class="bg-emerald-400 text-slate-900 text-xs font-bold px-1.5 py-0.5 rounded ml-1 uppercase">data</span>
-                {% endif %}
-            </li>
+                            </template>
+                        </span>
+                        {% endif %}
+                        {% elif arc.has_data %}
+                        <span class="text-xs font-medium text-emerald-500/80 bg-emerald-500/10 px-2 py-0.5 rounded-full">has data</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        </ul>
+        </div>
     </section>
     {% endif %}
     {% endfor %}

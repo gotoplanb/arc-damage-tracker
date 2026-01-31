@@ -1,69 +1,72 @@
 {% extends "base.html" %}
 {% block title %}{{ arc.name }} - Arc Raiders Damage Tracker{% endblock %}
 {% block content %}
-{% set threat_colors = {'extreme': 'bg-extreme', 'critical': 'bg-critical', 'high': 'bg-high', 'moderate': 'bg-moderate', 'low': 'bg-low'} %}
+{% set threat_text = {'extreme': 'text-extreme', 'critical': 'text-critical', 'high': 'text-high', 'moderate': 'text-moderate', 'low': 'text-low'} %}
+{% set threat_bg = {'extreme': 'bg-extreme-muted/20 border-extreme-muted/40', 'critical': 'bg-critical-muted/20 border-critical-muted/40', 'high': 'bg-high-muted/20 border-high-muted/40', 'moderate': 'bg-moderate-muted/20 border-moderate-muted/40', 'low': 'bg-low-muted/20 border-low-muted/40'} %}
 
-<a href="/" class="text-emerald-400 hover:text-emerald-300 text-sm">&larr; Back</a>
+<a href="/" class="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors mb-6">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+    </svg>
+    All ARCs
+</a>
 
-<h2 class="text-xl font-bold mt-3 mb-1">{{ arc.name }}</h2>
-<p class="text-gray-400 mb-6">
-    <span class="inline-block px-2 py-0.5 rounded text-xs font-bold uppercase {{ threat_colors[arc.threat_level] }}">{{ arc.threat_level|title }}</span>
-    {{ arc.type }} | {{ arc.kill_xp }} XP (kill) | {{ arc.loot_xp }} XP (loot)
-</p>
-
-<h3 class="text-lg font-semibold text-emerald-400 mb-2">Weapons</h3>
-{% if arc.damage.weapons %}
-<div class="overflow-x-auto mb-6">
-    <table class="w-full text-sm">
-        <thead>
-            <tr class="border-b border-slate-700">
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Weapon</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Units to Kill</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Verified</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for weapon, info in arc.damage.weapons.items() %}
-            <tr class="border-b border-slate-800 {{ 'bg-emerald-900/30' if info.best }}">
-                <td class="py-2 px-3">{{ weapon }}{% if info.best %} <span class="text-emerald-400 text-xs font-bold uppercase">best</span>{% endif %}</td>
-                <td class="py-2 px-3">{{ info.units }}</td>
-                <td class="py-2 px-3 text-gray-500">{{ info.verified }}</td>
-                <td class="py-2 px-3 text-gray-400">{{ info.notes }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="mb-8">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{{ arc.name }}</h2>
+    <div class="flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wider border {{ threat_bg[arc.threat_level] }} {{ threat_text[arc.threat_level] }}">
+            {{ arc.threat_level|title }}
+        </span>
+        <span class="text-sm text-gray-500">{{ arc.type }}</span>
+        <div class="flex items-center gap-4 text-sm">
+            <span class="text-gray-400"><span class="font-mono font-medium text-gray-300">{{ arc.kill_xp }}</span> <span class="text-gray-600">kill xp</span></span>
+            <span class="text-gray-400"><span class="font-mono font-medium text-gray-300">{{ arc.loot_xp }}</span> <span class="text-gray-600">loot xp</span></span>
+        </div>
+    </div>
 </div>
-{% else %}
-<p class="text-gray-500 mb-6">No weapon data yet.</p>
-{% endif %}
 
-<h3 class="text-lg font-semibold text-emerald-400 mb-2">Explosives</h3>
-{% if arc.damage.explosives %}
-<div class="overflow-x-auto mb-6">
-    <table class="w-full text-sm">
-        <thead>
-            <tr class="border-b border-slate-700">
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Explosive</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Units to Kill</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Verified</th>
-                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for explosive, info in arc.damage.explosives.items() %}
-            <tr class="border-b border-slate-800 {{ 'bg-emerald-900/30' if info.best }}">
-                <td class="py-2 px-3">{{ explosive }}{% if info.best %} <span class="text-emerald-400 text-xs font-bold uppercase">best</span>{% endif %}</td>
-                <td class="py-2 px-3">{{ info.units }}</td>
-                <td class="py-2 px-3 text-gray-500">{{ info.verified }}</td>
-                <td class="py-2 px-3 text-gray-400">{{ info.notes }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% else %}
-<p class="text-gray-500 mb-6">No explosive data yet.</p>
-{% endif %}
+{% macro damage_table(title, icon, items) %}
+<section class="mb-8">
+    <h3 class="text-sm font-semibold tracking-widest uppercase text-gray-400 mb-3">{{ title }}</h3>
+    {% if items %}
+    <div class="rounded-xl border border-gray-800/80 overflow-hidden">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-gray-900/50">
+                    <th class="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">{{ title[:-1] }}</th>
+                    <th class="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">To Kill</th>
+                    <th class="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Verified</th>
+                    <th class="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-800/50">
+            {% for name, info in items.items() %}
+                <tr class="{{ 'bg-emerald-500/5' if info.best else 'hover:bg-gray-900/30' }} transition-colors">
+                    <td class="py-3 px-4 font-medium">
+                        {{ name }}
+                        {% if info.best %}
+                        <span class="inline-flex items-center ml-2 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">best</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="font-mono font-medium text-emerald-400">{{ info.units }}</span>
+                    </td>
+                    <td class="py-3 px-4 text-gray-600 text-xs hidden sm:table-cell">{{ info.verified }}</td>
+                    <td class="py-3 px-4 text-gray-400 text-xs leading-relaxed">{{ info.notes }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="rounded-xl border border-dashed border-gray-800 px-4 py-8 text-center">
+        <p class="text-gray-600 text-sm">No {{ title|lower }} data yet.</p>
+        <p class="text-gray-700 text-xs mt-1">Be the first to contribute!</p>
+    </div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+{{ damage_table("Weapons", "weapon", arc.damage.weapons) }}
+{{ damage_table("Explosives", "explosive", arc.damage.explosives) }}
 {% endblock %}
