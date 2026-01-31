@@ -1,45 +1,69 @@
 {% extends "base.html" %}
 {% block title %}{{ arc.name }} - Arc Raiders Damage Tracker{% endblock %}
 {% block content %}
-<a href="/">&larr; Back</a>
+{% set threat_colors = {'extreme': 'bg-extreme', 'critical': 'bg-critical', 'high': 'bg-high', 'moderate': 'bg-moderate', 'low': 'bg-low'} %}
 
-<h2>{{ arc.name }}</h2>
-<p class="arc-meta">
-    <span class="threat threat-{{ arc.threat_level }}">{{ arc.threat_level|title }}</span>
+<a href="/" class="text-emerald-400 hover:text-emerald-300 text-sm">&larr; Back</a>
+
+<h2 class="text-xl font-bold mt-3 mb-1">{{ arc.name }}</h2>
+<p class="text-gray-400 mb-6">
+    <span class="inline-block px-2 py-0.5 rounded text-xs font-bold uppercase {{ threat_colors[arc.threat_level] }}">{{ arc.threat_level|title }}</span>
     {{ arc.type }} | {{ arc.kill_xp }} XP (kill) | {{ arc.loot_xp }} XP (loot)
 </p>
 
-<h3>Weapons</h3>
+<h3 class="text-lg font-semibold text-emerald-400 mb-2">Weapons</h3>
 {% if arc.damage.weapons %}
-<table>
-    <tr><th>Weapon</th><th>Units to Kill</th><th>Verified</th><th>Notes</th></tr>
-    {% for weapon, info in arc.damage.weapons.items() %}
-    <tr>
-        <td>{{ weapon }}</td>
-        <td>{{ info.units }}</td>
-        <td>{{ info.verified }}</td>
-        <td>{{ info.notes }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="overflow-x-auto mb-6">
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="border-b border-slate-700">
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Weapon</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Units to Kill</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Verified</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for weapon, info in arc.damage.weapons.items() %}
+            <tr class="border-b border-slate-800">
+                <td class="py-2 px-3">{{ weapon }}</td>
+                <td class="py-2 px-3">{{ info.units }}</td>
+                <td class="py-2 px-3 text-gray-500">{{ info.verified }}</td>
+                <td class="py-2 px-3 text-gray-400">{{ info.notes }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% else %}
-<p>No weapon data yet.</p>
+<p class="text-gray-500 mb-6">No weapon data yet.</p>
 {% endif %}
 
-<h3>Explosives</h3>
+<h3 class="text-lg font-semibold text-emerald-400 mb-2">Explosives</h3>
 {% if arc.damage.explosives %}
-<table>
-    <tr><th>Explosive</th><th>Units to Kill</th><th>Verified</th><th>Notes</th></tr>
-    {% for explosive, info in arc.damage.explosives.items() %}
-    <tr>
-        <td>{{ explosive }}</td>
-        <td>{{ info.units }}</td>
-        <td>{{ info.verified }}</td>
-        <td>{{ info.notes }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="overflow-x-auto mb-6">
+    <table class="w-full text-sm">
+        <thead>
+            <tr class="border-b border-slate-700">
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Explosive</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Units to Kill</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Verified</th>
+                <th class="text-left py-2 px-3 text-emerald-400 font-medium">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for explosive, info in arc.damage.explosives.items() %}
+            <tr class="border-b border-slate-800">
+                <td class="py-2 px-3">{{ explosive }}</td>
+                <td class="py-2 px-3">{{ info.units }}</td>
+                <td class="py-2 px-3 text-gray-500">{{ info.verified }}</td>
+                <td class="py-2 px-3 text-gray-400">{{ info.notes }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% else %}
-<p>No explosive data yet.</p>
+<p class="text-gray-500 mb-6">No explosive data yet.</p>
 {% endif %}
 {% endblock %}

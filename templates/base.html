@@ -4,14 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Arc Raiders Damage Tracker{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        extreme: '#8b0000',
+                        critical: '#c0392b',
+                        high: '#d35400',
+                        moderate: '#7d6608',
+                        low: '#2d6a2e',
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
-<body>
-    <header>
-        <h1><a href="/">Arc Raiders Damage Tracker</a></h1>
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+<body class="bg-slate-900 text-gray-200 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <header class="mb-6">
+            <h1 class="text-2xl font-bold">
+                <a href="/" class="text-red-500 hover:text-red-400 no-underline">Arc Raiders Damage Tracker</a>
+            </h1>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
 </body>
 </html>
