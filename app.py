@@ -32,7 +32,9 @@ def index():
     grouped = {level: [] for level in threat_order}
     for arc in data['arc_list']:
         slug = arc['slug']
-        arc['has_data'] = slug in arc_data and bool(arc_data[slug].get('strategies'))
+        strategies = arc_data[slug].get('strategies', []) if slug in arc_data else []
+        arc['has_data'] = bool(strategies)
+        arc['has_verified'] = any(s.get('verified') for s in strategies)
         arc['best'] = None
         if slug in arc_data:
             best_strategy = next((s for s in arc_data[slug].get('strategies', []) if s.get('best')), None)

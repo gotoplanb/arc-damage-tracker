@@ -9,7 +9,7 @@
             <div class="w-9 h-5 rounded-full bg-gray-800 border border-gray-700 peer-checked:bg-emerald-600 peer-checked:border-emerald-500 transition-all"></div>
             <div class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-gray-400 peer-checked:bg-white peer-checked:translate-x-4 transition-all"></div>
         </div>
-        <span class="group-hover:text-gray-300 transition-colors">Show only ARCs with data</span>
+        <span class="group-hover:text-gray-300 transition-colors">Show only verified ARCs</span>
     </label>
 
     {% set threat_borders = {'extreme': 'border-l-extreme', 'critical': 'border-l-critical', 'high': 'border-l-high', 'moderate': 'border-l-moderate', 'low': 'border-l-low'} %}
@@ -18,7 +18,7 @@
 
     {% for level in threat_order %}
     {% if grouped_arcs[level] %}
-    <section class="mb-8" x-show="!dataOnly || {{ grouped_arcs[level]|selectattr('has_data')|list|length }} > 0">
+    <section class="mb-8" x-show="!dataOnly || {{ grouped_arcs[level]|selectattr('has_verified')|list|length }} > 0">
         <div class="flex items-center gap-3 mb-3">
             <h2 class="text-xs font-semibold tracking-widest uppercase {{ threat_text[level] }}">
                 {{ level|title }} Threat
@@ -27,7 +27,7 @@
         </div>
         <div class="space-y-2">
         {% for arc in grouped_arcs[level] %}
-            <div x-show="!dataOnly || {{ 'true' if arc.has_data else 'false' }}"
+            <div x-show="!dataOnly || {{ 'true' if arc.has_verified else 'false' }}"
                  class="group rounded-lg border-l-2 {{ threat_borders[level] }} {{ threat_bg[level] if arc.has_data else 'bg-gray-900/40' }} px-4 py-3 transition-all hover:bg-gray-800/60">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3 min-w-0">
