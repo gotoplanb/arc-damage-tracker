@@ -1,18 +1,92 @@
 {
   "arcs": [
     {
+      "slug": "matriarch",
+      "name": "Matriarch",
+      "threat_level": "extreme",
+      "type": "Boss",
+      "hp": 35000,
+      "kill_xp": 1000,
+      "loot_xp": 500,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Focus leg armor first, then skeletal joints. Head weak point only during laser charge.",
+          "items": [
+            { "type": "weapon", "name": "Hullcracker", "units": "150-250" }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Supplemental damage when unshielded. Stack with Hullcracker.",
+          "items": [
+            { "type": "explosive", "name": "Wolfpack", "units": "10-15" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "the-queen",
+      "name": "The Queen",
+      "threat_level": "extreme",
+      "type": "Boss",
+      "hp": 35000,
+      "kill_xp": 1000,
+      "loot_xp": 1000,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Strip leg armor to expose yellow joints. Head only vulnerable during laser.",
+          "items": [
+            { "type": "weapon", "name": "Hullcracker", "units": "150-250" }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Essential for boss damage. Bring full stock.",
+          "items": [
+            { "type": "explosive", "name": "Heavy Fuze Grenade", "units": "15-20" }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "bastion",
       "name": "Bastion",
       "threat_level": "critical",
       "type": "Heavy Assault",
       "kill_xp": 500,
       "loot_xp": 250,
-      "damage": {
-        "weapons": {},
-        "explosives": {
-          "Trailblazer": {"units": 3, "verified": "2026-01-31", "notes": "Throw right underneath", "best": true}
+      "strategies": [
+        {
+          "best": true,
+          "verified": "2026-01-31",
+          "notes": "Throw right underneath",
+          "items": [
+            { "type": "explosive", "name": "Trailblazer", "units": 3 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Stack and detonate simultaneously on kneecaps",
+          "items": [
+            { "type": "explosive", "name": "Trigger Nade", "units": 3 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Target yellow kneecaps, then rear cylinder",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": "12-15" }
+          ]
         }
-      }
+      ]
     },
     {
       "slug": "bombardier",
@@ -21,12 +95,312 @@
       "type": "Heavy Artillery",
       "kill_xp": 500,
       "loot_xp": 300,
-      "damage": {
-        "weapons": {},
-        "explosives": {
-          "Trailblazer": {"units": 3, "verified": "2026-01-31", "notes": "Throw right underneath", "best": true}
+      "strategies": [
+        {
+          "best": true,
+          "verified": "2026-01-31",
+          "notes": "Throw right underneath",
+          "items": [
+            { "type": "explosive", "name": "Trailblazer", "units": 3 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Kill Spotter drones first. Target yellow kneecaps then rear cylinder.",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": "8-10" }
+          ]
         }
-      }
+      ]
+    },
+    {
+      "slug": "leaper",
+      "name": "Leaper",
+      "threat_level": "critical",
+      "type": "Siege Engine",
+      "kill_xp": 500,
+      "loot_xp": 500,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Stun for 10 seconds, then shoot leg joints",
+          "items": [
+            { "type": "explosive", "name": "Showstopper", "units": 1 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Target leg joints to immobilize, then core",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": "8-10" }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Fire causes panic. Nerfed in 1.3 - needs more grenades now.",
+          "items": [
+            { "type": "explosive", "name": "Blaze Grenade", "units": "3-4" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "rocketeer",
+      "name": "Rocketeer",
+      "threat_level": "critical",
+      "type": "Flying Artillery",
+      "kill_xp": 500,
+      "loot_xp": 500,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "One Wolfpack + 1 Hullcracker shot = instant kill",
+          "items": [
+            { "type": "explosive", "name": "Wolfpack", "units": 1 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Target single thruster or red core during reload. Never stay still.",
+          "items": [
+            { "type": "weapon", "name": "Hullcracker", "units": "2-3" }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Grounds it for 10 seconds. Shoot thrusters while stunned.",
+          "items": [
+            { "type": "explosive", "name": "Showstopper", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fireball",
+      "name": "Fireball",
+      "threat_level": "high",
+      "type": "Area Denial",
+      "kill_xp": 100,
+      "loot_xp": 100,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "One-shot when casing opens during fire attack. Wait for white interior exposure.",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": 1 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "One-shot to exposed core when attacking",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "hornet",
+      "name": "Hornet",
+      "threat_level": "high",
+      "type": "Medium Drone",
+      "kill_xp": 150,
+      "loot_xp": 250,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Target unarmored rear propellers. Heavy ammo required for front.",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": "2-3" }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Homes in and destroys",
+          "items": [
+            { "type": "explosive", "name": "Seeker Grenade", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sentinel",
+      "name": "Sentinel",
+      "threat_level": "high",
+      "type": "Sniper Turret",
+      "kill_xp": 200,
+      "loot_xp": 300,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Target yellow neck component from outside firing arc",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": "2-3" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shredder",
+      "name": "Shredder",
+      "threat_level": "high",
+      "type": "Area Denial",
+      "kill_xp": 200,
+      "loot_xp": 250,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "AI now chases Lures reliably (Patch 1.3). Use to redirect.",
+          "items": [
+            { "type": "explosive", "name": "Lure Grenade", "units": 1 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Weak points unknown. Use heavy ammo.",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": "6-8" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "spotter",
+      "name": "Spotter",
+      "threat_level": "high",
+      "type": "Scout Drone",
+      "kill_xp": 100,
+      "loot_xp": 200,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Priority kill - guides Bombardier shots",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pop",
+      "name": "Pop",
+      "threat_level": "moderate",
+      "type": "Explosive",
+      "kill_xp": 50,
+      "loot_xp": 100,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Unarmored. One shot with anything. Keep distance - explosion hurts.",
+          "items": [
+            { "type": "weapon", "name": "Any", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "snitch",
+      "name": "Snitch",
+      "threat_level": "moderate",
+      "type": "Scout Drone",
+      "kill_xp": 100,
+      "loot_xp": 200,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Shoot 2 of 3 white circular plates before it signals. Priority kill.",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": 2 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Heavy ammo to white plates. Kill on sight.",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tick",
+      "name": "Tick",
+      "threat_level": "moderate",
+      "type": "Ambush Predator",
+      "kill_xp": 50,
+      "loot_xp": 100,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "One-hit melee kill. Silent and free.",
+          "items": [
+            { "type": "weapon", "name": "Melee", "units": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "turret",
+      "name": "Turret",
+      "threat_level": "moderate",
+      "type": "Defense System",
+      "kill_xp": 100,
+      "loot_xp": 200,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Target body behind central barrel. Peek-shoot strategy.",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "wasp",
+      "name": "Wasp",
+      "threat_level": "moderate",
+      "type": "Flying Drone",
+      "kill_xp": 100,
+      "loot_xp": 200,
+      "strategies": [
+        {
+          "best": true,
+          "verified": false,
+          "notes": "Destroy any 2 of 4 propellers. Light ammo works.",
+          "items": [
+            { "type": "weapon", "name": "Anvil", "units": 3 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Target body directly for quick kill",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": "1-2" }
+          ]
+        }
+      ]
     },
     {
       "slug": "surveyor",
@@ -35,12 +409,24 @@
       "type": "Reconnaissance",
       "kill_xp": 200,
       "loot_xp": 300,
-      "damage": {
-        "weapons": {},
-        "explosives": {
-          "Seeker Grenade": {"units": 2, "verified": "2026-01-31", "notes": "Only works while scanning (blue light painting into sky)", "best": true}
+      "strategies": [
+        {
+          "best": true,
+          "verified": "2026-01-31",
+          "notes": "Only works while scanning (blue light painting into sky)",
+          "items": [
+            { "type": "explosive", "name": "Seeker Grenade", "units": 2 }
+          ]
+        },
+        {
+          "best": false,
+          "verified": false,
+          "notes": "Shoot beacon module when exposed during transmission",
+          "items": [
+            { "type": "weapon", "name": "Ferro", "units": "2-3" }
+          ]
         }
-      }
+      ]
     }
   ],
   "weapons": [
@@ -105,5 +491,16 @@
     {"slug": "turret", "name": "Turret", "threat_level": "moderate", "type": "Defense System", "kill_xp": 100, "loot_xp": 200},
     {"slug": "wasp", "name": "Wasp", "threat_level": "moderate", "type": "Flying Drone", "kill_xp": 100, "loot_xp": 200},
     {"slug": "surveyor", "name": "Surveyor", "threat_level": "low", "type": "Reconnaissance", "kill_xp": 200, "loot_xp": 300}
-  ]
+  ],
+  "meta_notes": {
+    "patch_version": "1.13.0 Headwinds",
+    "last_updated": "2026-01-27",
+    "key_changes": [
+      "Kettle fire rate capped at 450 RPM (Patch 1.11)",
+      "Trigger Nade delay increased to 1.5s (Patch 1.11)",
+      "Explosive damage hits fewer hitboxes on large ARCs (Patch 1.3)",
+      "Blaze Grenades nerfed vs multi-part ARCs",
+      "Hullcracker requires more precision post-nerf"
+    ]
+  }
 }

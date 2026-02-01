@@ -32,16 +32,15 @@ def index():
     grouped = {level: [] for level in threat_order}
     for arc in data['arc_list']:
         slug = arc['slug']
-        arc['has_data'] = slug in arc_data
+        arc['has_data'] = slug in arc_data and bool(arc_data[slug].get('strategies'))
         arc['best'] = None
         if slug in arc_data:
-            for category in ('weapons', 'explosives'):
-                for name, info in arc_data[slug]['damage'].get(category, {}).items():
-                    if info.get('best'):
-                        arc['best'] = {'name': name, 'units': info['units'], 'notes': info.get('notes', '')}
-                        break
-                if arc['best']:
-                    break
+            best_strategy = next((s for s in arc_data[slug].get('strategies', []) if s.get('best')), None)
+            if best_strategy:
+                items = best_strategy['items']
+                name = ' + '.join(f"{item['units']}x {item['name']}" for item in items) if len(items) > 1 else items[0]['name']
+                units = items[0]['units'] if len(items) == 1 else None
+                arc['best'] = {'name': name, 'units': units, 'notes': best_strategy.get('notes', '')}
         grouped[arc['threat_level']].append(arc)
     return render_template('index.html', grouped_arcs=grouped, threat_order=threat_order)
 
@@ -52,7 +51,7 @@ def arc_detail(slug):
     if not arc:
         arc_info = next((a for a in data['arc_list'] if a['slug'] == slug), None)
         if arc_info:
-            arc = {**arc_info, 'damage': {'weapons': {}, 'explosives': {}}}
+            arc = {**arc_info, 'strategies': []}
         else:
             abort(404)
     return render_template('arc_detail.html', arc=arc)

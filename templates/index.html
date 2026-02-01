@@ -38,8 +38,12 @@
                     </div>
                     <div class="flex items-center gap-2 shrink-0">
                         {% if arc.best %}
+                        {% if arc.best.units %}
                         <span class="font-mono text-sm font-medium text-emerald-400">{{ arc.best.units }}x</span>
                         <span class="text-sm text-gray-400">{{ arc.best.name }}</span>
+                        {% else %}
+                        <span class="text-sm text-gray-400">{{ arc.best.name }}</span>
+                        {% endif %}
                         {% if arc.best.notes %}
                         <span x-data="{ open: false }">
                             <button @click="open = true" class="text-gray-600 hover:text-emerald-400 transition-colors focus:outline-none" aria-label="Info">
@@ -53,7 +57,11 @@
                                         <div class="flex items-start justify-between mb-3">
                                             <div>
                                                 <h3 class="font-semibold text-gray-100">{{ arc.name }}</h3>
+                                                {% if arc.best.units %}
                                                 <p class="text-xs text-emerald-400 font-mono mt-0.5">{{ arc.best.units }}x {{ arc.best.name }}</p>
+                                                {% else %}
+                                                <p class="text-xs text-emerald-400 font-mono mt-0.5">{{ arc.best.name }}</p>
+                                                {% endif %}
                                             </div>
                                             <button @click="open = false" class="text-gray-500 hover:text-gray-300 text-xl leading-none transition-colors">&times;</button>
                                         </div>
