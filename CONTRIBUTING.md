@@ -34,6 +34,13 @@ pip install flask pytest
 python app.py
 ```
 
+For E2E tests, install the additional dependencies:
+
+```bash
+pip install -r requirements.txt
+playwright install chromium
+```
+
 ### Making Changes
 
 1. Fork the repo and create a branch
@@ -68,13 +75,16 @@ Rules:
 ```
 app.py                  Flask routes and data loading
 data.json               All ARC and strategy data
-test_app.py             Pytest suite
+test_app.py             Pytest unit tests
+tests/
+  test_e2e_otel.py      E2E smoke tests (uses smokeshow library)
 templates/
   base.html             Layout, Tailwind config, shared styles
   index.html            Homepage with threat-level grouping
   arc_detail.html       Individual ARC strategy cards
 Procfile                Heroku web process
 requirements.txt        Python dependencies
+TESTING.md              E2E test documentation and trace structure
 .github/workflows/
   deploy.yml            CI test + Heroku deploy pipeline
 ```

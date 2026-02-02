@@ -133,6 +133,8 @@ A single `data.json` file at the project root contains all application data:
 
 ## Tests
 
+### Unit tests
+
 Pytest suite (`test_app.py`) covering:
 - Homepage returns 200 and contains "Arc Raiders"
 - Detail page returns 200 for valid ARC
@@ -141,6 +143,10 @@ Pytest suite (`test_app.py`) covering:
 - Every ARC in `arcs` array has `strategies` key (list) and no legacy `damage` key
 - Every strategy has `best`, `items` (non-empty), and valid item structure (type in weapon/explosive, name, units)
 - At most one strategy per ARC is marked `best: true`
+
+### E2E smoke tests
+
+Browser-based tests (`tests/test_e2e_otel.py`) using the [smokeshow](https://github.com/gotoplanb/smokeshow) library for Playwright + OpenTelemetry instrumentation. Three test cases verify homepage loading, detail page navigation, and detail page content. Each run produces a single trace with a three-level span hierarchy (suite, test case, action) exported to a local OTEL collector. See [TESTING.md](TESTING.md) for full details.
 
 ## Design Principles
 

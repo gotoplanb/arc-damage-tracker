@@ -31,11 +31,26 @@ The app runs at `http://localhost:5000` with debug mode enabled.
 
 ## Running Tests
 
+**Unit tests:**
+
 ```bash
 pytest test_app.py -v
 ```
 
 Tests validate data structure integrity, route behavior, strategy schema, and business rules (e.g., max one "best" strategy per ARC).
+
+**E2E smoke tests:**
+
+```bash
+# Start the app
+bash scripts/run-otel.sh
+
+# In another terminal
+source .venv/bin/activate
+python tests/test_e2e_otel.py
+```
+
+E2E tests use [smokeshow](https://github.com/gotoplanb/smokeshow) to run headless Chromium against the live app and export OpenTelemetry traces to Grafana/Jaeger. See [TESTING.md](TESTING.md) for trace structure and span attribute details.
 
 ## Data Model
 
