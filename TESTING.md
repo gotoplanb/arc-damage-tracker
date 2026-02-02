@@ -5,11 +5,11 @@
 The arc-damage-tracker has two layers of testing:
 
 - **Unit tests** (`tests/test_app.py`) — Standard pytest tests for Flask routes and data loading. No external dependencies.
-- **E2E smoke tests** (`tests/test_e2e_otel.py`) — Playwright browser tests with OpenTelemetry instrumentation. Produces traces visible in Grafana/Jaeger.
+- **E2E smoke tests** (`tests/test_e2e_otel.py`) — Playwright browser tests instrumented with [smokeshow](https://github.com/gotoplanb/smokeshow), producing traces visible in Grafana/Jaeger.
 
 ## E2E Smoke Tests
 
-The E2E suite uses headless Chromium via Playwright to exercise the app as a real user would. Every test action is instrumented with OpenTelemetry, producing a single trace per suite run that captures the full test session.
+The E2E suite uses headless Chromium via Playwright to exercise the app as a real user would. Instrumentation is provided by the [smokeshow](https://github.com/gotoplanb/smokeshow) library, which wraps Playwright actions with OpenTelemetry spans. Each suite run produces a single trace capturing the full test session.
 
 ### Running
 

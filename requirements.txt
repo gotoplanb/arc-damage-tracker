@@ -1,4 +1,3 @@
 flask
 gunicorn
-opentelemetry-distro
-opentelemetry-exporter-otlp
+smokeshow @ git+https://github.com/gotoplanb/smokeshow.git
