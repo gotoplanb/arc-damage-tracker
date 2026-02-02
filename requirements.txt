@@ -1,2 +1,4 @@
 flask
 gunicorn
+opentelemetry-distro
+opentelemetry-exporter-otlp

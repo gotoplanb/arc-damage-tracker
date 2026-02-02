@@ -59,4 +59,4 @@ def arc_detail(slug):
     return render_template('arc_detail.html', arc=arc)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
